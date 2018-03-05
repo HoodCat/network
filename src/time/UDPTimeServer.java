@@ -36,12 +36,14 @@ public class UDPTimeServer {
 				
 				Calendar calendar = Calendar.getInstance();
 				SimpleDateFormat format = new SimpleDateFormat(
-						"yyyy-MM-dd hh:mm:ss");
-				message = format.format(calendar.getTime());
+						"yyyy-MM-dd hh:mm:ss a");
+				
+				byte[] sendData = format.format(calendar.getTime())
+						.getBytes("UTF-8");
 				
 				DatagramPacket sendPacket = new DatagramPacket(
-						message.getBytes("UTF-8"),
-						message.length(),
+						sendData,
+						sendData.length,
 						receivePacket.getAddress(),
 						receivePacket.getPort());
 				socket.send(sendPacket);
